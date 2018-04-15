@@ -52,11 +52,21 @@ set hlsearch
 set ignorecase
 set smartcase
 
+set encoding=utf-8
+set visualbell
+
+nnoremap / /\v
+vnoremap / /\v
+
 " Tabs/space settings
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
+set wrap
+set textwidth=79
+set noshiftround
+set smarttab
 
 " 'no one is really happy until you have all these shortcuts'
 cnoreabbrev W! w!
