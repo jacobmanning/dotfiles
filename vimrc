@@ -52,8 +52,12 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" Encoding
 set encoding=utf-8
+
+" No one wants a bell
 set visualbell
+set noeb vb t_vb=
 
 nnoremap / /\v
 vnoremap / /\v
