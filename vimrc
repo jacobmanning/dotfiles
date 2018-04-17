@@ -17,7 +17,7 @@ Plugin 'vim-airline/vim-airline-themes'
 " Vim as a programmer's editor
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
@@ -72,6 +72,9 @@ set textwidth=79
 set noshiftround
 set smarttab
 
+" Disable matching parentheses
+let g:loaded_matchparen=1
+
 " 'no one is really happy until you have all these shortcuts'
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -84,7 +87,7 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-"" Tabs
+" Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
