@@ -27,3 +27,6 @@ export PATH="/home/jacob/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# Tmux colors
+alias tmux='tmux -2'
+
