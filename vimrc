@@ -38,6 +38,9 @@ Plugin 'jez/vim-c0'
 Plugin 'jez/vim-ispc'
 Plugin 'kchmck/vim-coffee-script'
 
+" Rust
+Plugin 'rust-lang/rust.vim'
+
 call vundle#end()
 
 filetype plugin indent on
