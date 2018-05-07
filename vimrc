@@ -6,8 +6,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
-
 " Making vim look good
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
@@ -26,6 +24,9 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
+" C++ goodies
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
 " Other text editing features
 Plugin 'Raimondi/delimitMate'
 
@@ -40,6 +41,13 @@ Plugin 'kchmck/vim-coffee-script'
 
 " Rust
 Plugin 'rust-lang/rust.vim'
+
+" Extra colorschemes
+Plugin 'sonph/onehalf', {'rtp': 'vim/'}
+Plugin 'jacoborus/tender.vim'
+Plugin 'dracula/vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'drewtempelmeyer/palenight.vim'
 
 call vundle#end()
 
@@ -108,7 +116,13 @@ hi clear SignColumn
 set background=dark
 let g:solarized_termcolors=256
 
-colorscheme molokai
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Set colorscheme
+colorscheme dracula
 
 " vim-airline
 set laststatus=2
@@ -119,8 +133,8 @@ let g:airline_detect_paste=1
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
 
-" Use solarized theme for airline status bar
-let g:airline_theme='solarized'
+" Use theme for airline status bar
+let g:airline_theme='dracula'
 
 " Nerdtree tabs
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
