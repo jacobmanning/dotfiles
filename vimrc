@@ -51,6 +51,12 @@ Plugin 'drewtempelmeyer/palenight.vim'
 
 call vundle#end()
 
+" Vim Plug
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
 filetype plugin indent on
 
 " General settings
@@ -140,6 +146,8 @@ let g:airline_theme='dracula'
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " NERDTree open on startup
 let g:nerdtree_tabs_open_on_console_startup=1
+" NERDTreeFind
+nmap <leader>ntf :NERDTreeFind<cr>
 
 " scrooloose/syntastic
 let g:syntastic_error_symbol = 'X'
@@ -178,4 +186,7 @@ augroup END
 
 " jez/vim-superman
 noremap K :SuperMan <cword><CR>
+
+" FZF
+nmap <leader>f :FZF<cr>
 
