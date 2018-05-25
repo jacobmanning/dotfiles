@@ -30,3 +30,6 @@ eval "$(pyenv virtualenv-init -)"
 # Tmux colors
 alias tmux='tmux -2'
 
+# Fuzzy find from commmand line
+alias ffind='find * -type f | fzf'
+
