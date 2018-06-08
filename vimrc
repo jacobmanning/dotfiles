@@ -38,6 +38,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jez/vim-c0'
 Plugin 'jez/vim-ispc'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'rhysd/vim-clang-format'
 
 " Rust
 Plugin 'rust-lang/rust.vim'
@@ -189,4 +190,3 @@ noremap K :SuperMan <cword><CR>
 
 " FZF
 nmap <leader>f :FZF<cr>
-
