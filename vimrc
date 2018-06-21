@@ -29,6 +29,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 
 " Other text editing features
 Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-sleuth'
 
 " Man pages, tmux
 Plugin 'jez/vim-superman'
