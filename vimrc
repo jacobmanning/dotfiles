@@ -57,6 +57,7 @@ call vundle#end()
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 call plug#end()
 
 filetype plugin indent on
@@ -64,7 +65,7 @@ filetype plugin indent on
 " General settings
 set backspace=indent,eol,start
 set ruler
-set number
+set number relativenumber
 set showcmd
 set incsearch
 set hlsearch
