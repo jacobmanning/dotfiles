@@ -87,10 +87,12 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
-set wrap
-set textwidth=79
+"set wrap
+"set textwidth=79
 set noshiftround
 set smarttab
+set autoindent
+set copyindent
 
 " Disable matching parentheses
 let g:loaded_matchparen=1
@@ -192,3 +194,5 @@ noremap K :SuperMan <cword><CR>
 
 " FZF
 nmap <leader>f :FZF<cr>
+
+set list
