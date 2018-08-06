@@ -105,5 +105,7 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
+export TERM=xterm-256color
+
 source ~/.jacob_profile
 
