@@ -196,3 +196,8 @@ noremap K :SuperMan <cword><CR>
 nmap <leader>f :FZF<cr>
 
 set list
+
+" Fix issues with tmux and dracula italics
+let g:dracula_italic = 0
+colorscheme dracula
+highlight Normal ctermbg=None
