@@ -83,12 +83,10 @@ nnoremap / /\v
 vnoremap / /\v
 
 " Tabs/space settings
-set tabstop=4
+set tabstop=2
 set softtabstop=0
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
-"set wrap
-"set textwidth=79
 set noshiftround
 set smarttab
 set autoindent

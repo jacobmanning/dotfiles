@@ -25,16 +25,15 @@ set visualbell
 " Encoding
 set encoding=utf-8
 
-" Whitespace
-set wrap
-set textwidth=79
-set formatoptions=tcqrn1
-set tabstop=4
-set shiftwidth=4
+" Tabs/space settings
+set tabstop=2
 set softtabstop=0
+set shiftwidth=2
 set expandtab
 set noshiftround
 set smarttab
+set autoindent
+set copyindent
 
 " Cursor motion
 set scrolloff=3
@@ -87,4 +86,3 @@ let g:solarized_termtrans=1
 " put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
 " in ~/.vim/colors/ and uncomment:
 " colorscheme solarized
-
