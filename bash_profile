@@ -1,2 +1,0 @@
-source ~/.jacob_profile
-
