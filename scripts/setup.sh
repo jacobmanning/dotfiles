@@ -21,6 +21,30 @@ if ! [ -x "$(command -v curl)"]; then
 fi
 
 echo '*******************************' >&2
+echo 'Configuring rc files...' >&2
+echo '*******************************' >&2
+echo >&2
+
+if [ -d config ] && [ -d scripts ]; then
+  # Running from inside `dotfiles`
+  cp config/jacob_profile ~/.jacob_profile
+  cat config/bash_profile >> ~/.bash_profile
+  cp config/tmux.conf ~/.tmux.conf
+  cp config/vimrc ~/.vimrc
+  cp config/zshrc ~/.zshrc
+elif [ -d dotfiles ] && [ -d dotfiles/config ] && [ -d dotfiles/scripts ]; then
+  # Running from outside `dotfiles`
+  cp dotfiles/config/jacob_profile ~/.jacob_profile
+  cat dotfiles/config/bash_profile >> ~/.bash_profile
+  cp dotfiles/config/tmux.conf ~/.tmux.conf
+  cp dotfiles/config/vimrc ~/.vimrc
+  cp dotfiles/config/zshrc ~/.zshrc
+else
+  echo '[ERROR] Please run this script as `dotfiles/scripts/setup.sh`' >&2
+  echo >&2
+fi
+
+echo '*******************************' >&2
 echo 'Installing fzf...' >&2
 echo '*******************************' >&2
 echo >&2
@@ -84,3 +108,63 @@ echo '*******************************' >&2
 echo >&2
 
 vim +PluginInstall +PlugInstall +qall
+
+echo '*******************************' >&2
+echo 'Installing zsh...' >&2
+echo '*******************************' >&2
+echo >&2
+
+# Check if using Ubuntu (lazily)
+if ! [ -x "$(command -v apt)"]; then
+  echo '[ERROR] Auto-install zsh only supported for Ubuntu' >&2
+  echo >&2
+else
+  if [ -x "$(command -v zsh)"]; then
+    echo '*******************************' >&2
+    echo 'zsh already installed!' >&2
+    echo '*******************************' >&2
+    echo >&2
+  else
+    if ! [ $(id -u) = "0" ]; then
+      echo '[WARN] Please re-run this script with `sudo` to install zsh' >&2
+      echo >&2
+    else
+      # Install zsh
+      apt install zsh
+
+      # Install dracula theme
+      # Install auto-complete
+      # Install syntax highlighting
+    fi
+  fi
+fi
+
+echo '*******************************' >&2
+echo 'Installing trash-put...' >&2
+echo '*******************************' >&2
+echo >&2
+
+# Install trash-put
+if ! [ -x "$(command -v python)" ]; then
+  echo '*******************************' >&2
+  echo 'trash-cli requires python' >&2
+  echo '*******************************' >&2
+  echo >&2
+else
+  if [ -x "$(command -v easy_install)" ]; then
+    easy_install trash-cli
+  else
+    git clone https://github.com/andreafrancia/trash-cli.git ~/.trash-cli.git
+    current_dir=$pwd
+    cd ~/.trash-cli
+    python setup.py install --user
+    cd $current_dir
+  fi
+fi
+
+echo '*******************************' >&2
+echo '*******************************' >&2
+echo '[INFO] Restart your terminal!' >&2
+echo '*******************************' >&2
+echo '*******************************' >&2
+echo >&2

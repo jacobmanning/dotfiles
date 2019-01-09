@@ -1,3 +1,5 @@
+# [jacobmanning/dotfiles] Added by setup.sh script
+#
 # added alias for trash-put
 alias re='trash-put'
 
