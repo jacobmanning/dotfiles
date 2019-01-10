@@ -1,3 +1,5 @@
+# [jacobmanning/dotfiles] Added by setup.sh script
+#
 # added alias for trash-put
 alias re='trash-put'
 
@@ -32,3 +34,4 @@ alias tmux='tmux -2'
 
 # Fuzzy find from commmand line
 alias ffind='find * -type f | fzf'
+

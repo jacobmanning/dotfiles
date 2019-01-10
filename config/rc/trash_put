@@ -1,0 +1,7 @@
+# Added alias for trash-put
+alias re='trash-put'
+
+# Added to use trash-put from trash-cli instead of rm
+#   this way files are put to trash instead of removed completely
+alias rm='echo "Use re or trash-put or \rm."; false'
+alias rmdir='echo "Use re or trash-put or \rmdir."; false'

@@ -1,12 +1,4 @@
-# added alias for trash-put
-alias re='trash-put'
-
-# added to use trash-put from trash-cli instead of rm
-# this way files are put to trash instead of removed completely
-alias rm='echo "Use re or trash-put or \rm."; false'
-alias rmdir='echo "Use re or trash-put or \rmdir."; false'
-
-# enable custom wget
+# Custom wget
 jwget() {
     if [ $# = 1 ]; then
         echo "wget -A pdf,jpg,bmp,tar,tar.gz,zip,txt,md,bmp,docx,doc -m -p -E -k -K -np $1"
@@ -20,15 +12,3 @@ jwget() {
         echo "Ex2: jwget https://people.cs.pitt.edu/~nlf4/cs1501/handouts/example_files/"
     fi
 }
-
-# Pyenv
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PATH="/home/jacob/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-# Tmux colors
-alias tmux='tmux -2'
-
-# Fuzzy find from commmand line
-alias ffind='find * -type f | fzf'

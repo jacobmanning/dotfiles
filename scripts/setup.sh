@@ -4,20 +4,35 @@ echo 'Configuring your shell...' >&2
 echo '*******************************' >&2
 echo >&2
 
-# Check if git is installed
-if ! [ -x "$(command -v git)"]; then
-  echo '[ERROR] `git` is not installed' >&2
-  echo '[ERROR] Please install `git` and try again!' >&2
+if ! [ -x "$(command -v apt)" ]; then
+  echo '[ERROR] Auto-install only supported on Ubuntu' >&2
   echo >&2
   exit 1
 fi
 
-# Check if curl is installed
-if ! [ -x "$(command -v curl)"]; then
-  echo '[ERROR] `curl` is not installed' >&2
-  echo '[ERROR] Please install `curl` and try again!' >&2
+if ! [ $(id -u) = "0" ]; then
+  echo '[ERROR] Please re-run this script with `sudo` to install packages' >&2
   echo >&2
   exit 1
+fi
+
+apt update
+
+if ! [ -x "$(command -v add-apt-repository)" ]; then
+  apt-get install -y software-properties-common python-software-properties
+fi
+
+
+# Check if git is installed
+if ! [ -x "$(command -v git)" ]; then
+  add-apt-repository -y ppa:git-core/ppa
+  apt update
+  apt install -y git
+fi
+
+# Check if curl is installed
+if ! [ -x "$(command -v curl)" ]; then
+  apt install -y curl
 fi
 
 echo '*******************************' >&2
@@ -59,7 +74,24 @@ if [ -d ~/.fzf ]; then
 else
   # Install fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
+  ~/.fzf/install --all
+fi
+
+echo '*******************************' >&2
+echo 'Installing vim...' >&2
+echo '*******************************' >&2
+echo >&2
+
+if [ -x "$(command -v vim)" ]; then
+  echo '*******************************' >&2
+  echo 'vim already installed!' >&2
+  echo '*******************************' >&2
+  echo >&2
+else
+  # Install vim
+  add-apt-repository -y ppa:jonathonf/vim
+  apt update
+  apt install -y vim
 fi
 
 echo '*******************************' >&2
@@ -115,37 +147,35 @@ echo '*******************************' >&2
 echo >&2
 
 # Check if using Ubuntu (lazily)
-if ! [ -x "$(command -v apt)"]; then
-  echo '[ERROR] Auto-install zsh only supported for Ubuntu' >&2
+if [ -x "$(command -v zsh)" ]; then
+  echo '*******************************' >&2
+  echo 'zsh already installed!' >&2
+  echo '*******************************' >&2
   echo >&2
 else
-  if [ -x "$(command -v zsh)"]; then
-    echo '*******************************' >&2
-    echo 'zsh already installed!' >&2
-    echo '*******************************' >&2
-    echo >&2
-  else
-    if ! [ $(id -u) = "0" ]; then
-      echo '[WARN] Please re-run this script with `sudo` to install zsh' >&2
-      echo >&2
-    else
-      # Install zsh
-      apt install zsh
+  # Install zsh
+  apt install -y zsh
+fi
 
-      echo '*******************************' >&2
-      echo 'Installing zsh plugins...' >&2
-      echo '*******************************' >&2
-      echo >&2
+echo '*******************************' >&2
+echo 'Installing zsh plugins...' >&2
+echo '*******************************' >&2
+echo >&2
 
-      # Install dracula theme
-      git clone https://github.com/dracula/zsh.git ~/.zsh/dracula
-      ln -s $DRACULA_THEME/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
-      # Install auto-complete
-      git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-      # Install syntax highlighting
-      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    fi
-  fi
+# Install dracula theme
+if [ -d ~/.zsh/dracula ]; then
+  git clone https://github.com/dracula/zsh.git ~/.zsh/dracula
+  ln -s $DRACULA_THEME/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
+fi
+
+# Install auto-complete
+if [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
+# Install syntax highlighting
+if [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
 echo '*******************************' >&2
@@ -153,21 +183,28 @@ echo 'Installing trash-put...' >&2
 echo '*******************************' >&2
 echo >&2
 
-# Install trash-put
-if ! [ -x "$(command -v python)" ]; then
+if [ -x "$(command -v trash-put)" ] then;
   echo '*******************************' >&2
-  echo 'trash-cli requires python' >&2
+  echo 'trash-put already installed!' >&2
   echo '*******************************' >&2
   echo >&2
 else
-  if [ -x "$(command -v easy_install)" ]; then
-    easy_install trash-cli
+  # Install trash-put
+  if ! [ -x "$(command -v python)" ]; then
+    echo '*******************************' >&2
+    echo 'trash-cli requires python' >&2
+    echo '*******************************' >&2
+    echo >&2
   else
-    git clone https://github.com/andreafrancia/trash-cli.git ~/.trash-cli.git
-    current_dir=$pwd
-    cd ~/.trash-cli
-    python setup.py install --user
-    cd $current_dir
+    if [ -x "$(command -v easy_install)" ]; then
+      easy_install trash-cli
+    else
+      git clone https://github.com/andreafrancia/trash-cli.git ~/.trash-cli.git
+      current_dir=$pwd
+      cd ~/.trash-cli
+      python setup.py install --user
+      cd $current_dir
+    fi
   fi
 fi
 
