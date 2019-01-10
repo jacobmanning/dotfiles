@@ -132,9 +132,18 @@ else
       # Install zsh
       apt install zsh
 
+      echo '*******************************' >&2
+      echo 'Installing zsh plugins...' >&2
+      echo '*******************************' >&2
+      echo >&2
+
       # Install dracula theme
+      git clone https://github.com/dracula/zsh.git ~/.zsh/dracula
+      ln -s $DRACULA_THEME/dracula.zsh-theme $OH_MY_ZSH/themes/dracula.zsh-theme
       # Install auto-complete
+      git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
       # Install syntax highlighting
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     fi
   fi
 fi
