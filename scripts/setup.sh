@@ -1,3 +1,5 @@
+set -e
+
 echo '*******************************' >&2
 echo 'dotfiles/scripts/setup.sh' >&2
 echo 'Configuring your shell...' >&2
@@ -40,19 +42,20 @@ echo 'Configuring rc files...' >&2
 echo '*******************************' >&2
 echo >&2
 
+# TODO: Use config/rc and config/minimal
 if [ -d config ] && [ -d scripts ]; then
   # Running from inside `dotfiles`
   cp config/jacob_profile ~/.jacob_profile
-  cat config/bash_profile >> ~/.bash_profile
+  cat config/rc/profile_setup >> ~/.bash_profile
   cp config/tmux.conf ~/.tmux.conf
-  cp config/vimrc ~/.vimrc
+  cp config/minimal/plugin_install_vimrc ~/.vimrc
   cp config/zshrc ~/.zshrc
 elif [ -d dotfiles ] && [ -d dotfiles/config ] && [ -d dotfiles/scripts ]; then
   # Running from outside `dotfiles`
   cp dotfiles/config/jacob_profile ~/.jacob_profile
-  cat dotfiles/config/bash_profile >> ~/.bash_profile
+  cat dotfiles/config/rc/profile_setup >> ~/.bash_profile
   cp dotfiles/config/tmux.conf ~/.tmux.conf
-  cp dotfiles/config/vimrc ~/.vimrc
+  cp dotfiles/config/minimal/plugin_install_vimrc ~/.vimrc
   cp dotfiles/config/zshrc ~/.zshrc
 else
   echo '[ERROR] Please run this script as `dotfiles/scripts/setup.sh`' >&2
@@ -139,7 +142,20 @@ echo 'Installing vim plugins...' >&2
 echo '*******************************' >&2
 echo >&2
 
+# Run Vundle::install, VimPlug::install, and quit
 vim +PluginInstall +PlugInstall +qall
+
+# Copy full vimrc
+if [ -d config ] && [ -d scripts ]; then
+  # Running from inside `dotfiles`
+  cp config/vimrc ~/.vimrc
+elif [ -d dotfiles ] && [ -d dotfiles/config ] && [ -d dotfiles/scripts ]; then
+  # Running from outside `dotfiles`
+  cp dotfiles/config/vimrc ~/.vimrc
+else
+  echo '[ERROR] Please run this script as `dotfiles/scripts/setup.sh`' >&2
+  echo >&2
+fi
 
 echo '*******************************' >&2
 echo 'Installing zsh...' >&2
@@ -155,6 +171,9 @@ if [ -x "$(command -v zsh)" ]; then
 else
   # Install zsh
   apt install -y zsh
+  if [ $? -eq 0 ]; then
+    chsh -s $(which zsh)
+  fi
 fi
 
 echo '*******************************' >&2
@@ -183,7 +202,7 @@ echo 'Installing trash-put...' >&2
 echo '*******************************' >&2
 echo >&2
 
-if [ -x "$(command -v trash-put)" ] then;
+if [ -x "$(command -v trash-put)" ]; then
   echo '*******************************' >&2
   echo 'trash-put already installed!' >&2
   echo '*******************************' >&2
@@ -199,7 +218,7 @@ else
     if [ -x "$(command -v easy_install)" ]; then
       easy_install trash-cli
     else
-      git clone https://github.com/andreafrancia/trash-cli.git ~/.trash-cli.git
+      git clone https://github.com/andreafrancia/trash-cli.git ~/.trash-cli
       current_dir=$pwd
       cd ~/.trash-cli
       python setup.py install --user

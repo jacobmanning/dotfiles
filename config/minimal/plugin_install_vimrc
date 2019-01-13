@@ -1,0 +1,58 @@
+" Gotta be first
+set nocompatible
+
+" Set up Vundle
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Making vim look good
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" Vim as a programmer's editor
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-misc'
+Plugin 'majutsushi/tagbar'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-scripts/a.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+
+" C++ goodies
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
+" Other text editing features
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-sleuth'
+
+" Man pages, tmux
+Plugin 'christoomey/vim-tmux-navigator'
+
+" Syntax plugins
+Plugin 'jez/vim-c0'
+Plugin 'jez/vim-ispc'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'rhysd/vim-clang-format'
+
+" Rust
+Plugin 'rust-lang/rust.vim'
+
+" Extra colorschemes
+Plugin 'sonph/onehalf', {'rtp': 'vim/'}
+Plugin 'jacoborus/tender.vim'
+Plugin 'dracula/vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'drewtempelmeyer/palenight.vim'
+
+call vundle#end()
+
+" Vim Plug
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+call plug#end()
