@@ -324,6 +324,17 @@ install_zsh()
   fi
 }
 
+append_jacob_profile()
+{
+  if [ $(grep "source ~/.jacob_profile" ~/.bash_profile) -eq 1 ]; then
+    # Append config/rc/profile_setup to ~/.bash_profile
+  fi
+
+  if [ $(grep "source ~/.jacob_profile" ~/.zshrc) -eq 1 ]; then
+    # Append config/rc/profile_setup to ~/.zshrc
+  fi
+}
+
 # Parse command line arguments
 while [ "$1" != "" ]; do
   config_all=0
