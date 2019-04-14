@@ -105,6 +105,7 @@ setup_config_files()
 {
   if [[ $config_config_files -eq 1 ]] || [[ $config_all -eq 1  ]]; then
     echo 'TODO'
+    # Copy custom commands
   fi
 }
 
@@ -405,8 +406,8 @@ if [[ $env_ubuntu -eq 1 ]] && [[ $env_sudo -eq 1 ]]; then
   fi
 fi
 
-check_and_install_git_or_exit
-check_and_install_curl_or_exit
+# check_and_install_git_or_exit
+# check_and_install_curl_or_exit
 
 echo '*******************************' >&2
 echo 'Configuring rc files...' >&2

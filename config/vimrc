@@ -110,7 +110,7 @@ cnoreabbrev Qall qall
 " Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
+" nnoremap <silent> <S-t> :tabnew<CR>
 
 syntax on
 
@@ -199,3 +199,5 @@ set list
 let g:dracula_italic = 0
 colorscheme dracula
 highlight Normal ctermbg=None
+
+packadd! matchit
