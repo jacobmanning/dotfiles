@@ -21,15 +21,25 @@ jwget() {
     fi
 }
 
+wget_site() {
+    if [ $# = 1 ]; then
+        echo "wget --recursive --no-clobber --page-requisites --html-extension --convert-links --no-parent $1"
+        wget --recursive --no-clobber --page-requisites --html-extension --convert-links --no-parent $1
+    else
+        echo "Usage: wget_site <url>"
+        echo "Ex2: wget_site https://people.cs.pitt.edu/~nlf4/cs1501/handouts/example_files/"
+    fi
+}
+
 # Pyenv
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="/home/jacob/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# Tmux colors
-alias tmux='tmux -2'
-
 # Fuzzy find from commmand line
 alias ffind='find * -type f | fzf'
 
+export PATH="$PATH:$HOME/bin"
+
+alias vim='nvim'
