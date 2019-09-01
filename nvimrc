@@ -14,7 +14,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+" Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
@@ -59,15 +59,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'neomake/neomake'
 call plug#end()
 
-function! MyOnBattery()
-  return readfile('/sys/class/power_supply/AC/online') == ['0']
-endfunction
-
-if MyOnBattery()
-  call neomake#configure#automake('w')
-else
-  call neomake#configure#automake('nw', 1000)
-endif
+call neomake#configure#automake('w')
 
 " General settings
 set number relativenumber
@@ -131,7 +123,7 @@ let g:solarized_term_italics=0
 " If you have vim >=8.0 or Neovim >= 0.1.5
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+" set termguicolors
 
 " Set colorscheme
 " colorscheme dracula
@@ -165,11 +157,11 @@ nmap <leader>ntf :NERDTreeFind<cr>
 
 " xolox/vim-easytags
 " Defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 1
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warnings = 1
+" let g:easytags_events = ['BufReadPost', 'BufWritePost']
+" let g:easytags_async = 1
+" let g:easytags_dynamic_files = 1
+" let g:easytags_resolve_links = 1
+" let g:easytags_suppress_ctags_warnings = 1
 
 " majutsushi/tagbar
 " Open/close tagbar with <leader>b
@@ -213,13 +205,13 @@ let g:neomake_warning_sign = {
       \	'texthl': 'NeomakeWarningSign',
       \	}
 
-let g:neomake_cpp_enabled_makers = ['clangcheck', 'clangtidy']
-let g:neomake_cpp_clangtidy_maker = {
-      \ 'exe': 'clang-tidy',
-      \ 'args': ['-extra-arg-before=-std=c++17', '-checks=bugprone-*,cppcoreguidelines-*,clang-analyzer-*,google-*,hicpp-*,misc-*,modernize-*,performance-*,readability-*', '-header-filter=.*', '-quiet'],
-      \ }
+" let g:neomake_cpp_enabled_makers = ['clangcheck', 'clangtidy']
+" let g:neomake_cpp_clangtidy_maker = {
+"       \ 'exe': 'clang-tidy',
+"       \ 'args': ['-extra-arg-before=-std=c++17', '-checks=bugprone-*,cppcoreguidelines-*,clang-analyzer-*,google-*,hicpp-*,misc-*,modernize-*,performance-*,readability-*', '-header-filter=.*', '-quiet'],
+"       \ }
 
-let g:neomake_cpp_clangcheck_maker = {
-      \ 'exe': 'clang-check',
-      \ 'args': ['-extra-arg-before=-Wc++17-extensions','-extra-arg-before=-std=c++17'],
-      \ }
+" let g:neomake_cpp_clangcheck_maker = {
+"       \ 'exe': 'clang-check',
+"       \ 'args': ['-extra-arg-before=-Wc++17-extensions','-extra-arg-before=-std=c++17'],
+"       \ }

@@ -1,5 +1,6 @@
 # added alias for trash-put
-alias re='trash-put'
+# alias re='trash-put'
+alias re='trash'
 
 # added to use trash-put from trash-cli instead of rm
 # this way files are put to trash instead of removed completely
@@ -35,11 +36,25 @@ wget_site() {
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="/home/jacob/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # Fuzzy find from commmand line
 alias ffind='find * -type f | fzf'
 
 export PATH="$PATH:$HOME/bin"
 
+alias tofu="python ./scripts/tofu.py"
+
 alias vim='nvim'
+alias v='nvim'
+
+alias g='git'
+
+git config --global alias.o checkout
+git config --global alias.b branch
+git config --global alias.c commit
+git config --global alias.a add
+git config --global alias.d diff
+git config --global alias.s status
+
+alias bazel='CC=g++ bazel'
