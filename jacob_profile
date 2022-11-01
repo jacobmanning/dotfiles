@@ -32,10 +32,10 @@ wget_site() {
 }
 
 # Pyenv
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PATH="/home/jacob/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# export PATH="/home/jacob/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # Fuzzy find from commmand line
 alias ffind='find * -type f | fzf'
@@ -43,3 +43,29 @@ alias ffind='find * -type f | fzf'
 export PATH="$PATH:$HOME/bin"
 
 alias vim='nvim'
+alias v='nvim'
+
+git config --global alias.o checkout
+git config --global alias.b branch
+git config --global alias.c commit
+git config --global alias.s status
+git config --global alias.d diff
+git config --global alias.l log
+git config --global alias.p pull
+git config --global alias.cp cherry-pick
+
+alias gs='git status'
+alias nvimswpclean='re ~/.local/share/nvim/swap/*'
+
+export FZF_DEFAULT_COMMAND='rg --files'
+
+alias gpr='g p --rebase'
+alias gpn='g p --no-recurse-submodules'
+alias gpnr='gpn --rebase'
+alias gpnro='gpnr origin'
+alias gbd='g b -D'
+alias gob='g o -b'
+
+# zsh move word keys
+bindkey "^[b]" backward-word
+bindkey "^[f]" forward-word

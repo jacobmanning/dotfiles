@@ -14,9 +14,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'vim-syntastic/syntastic'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+" Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
@@ -55,12 +55,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'xavierd/clang_complete'
 " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'neomake/neomake'
 call plug#end()
 
 function! MyOnBattery()
-  return readfile('/sys/class/power_supply/AC/online') == ['0']
+  " Only on linux I think
+  " return readfile('/sys/class/power_supply/AC/online') == ['0']
+  return 1
 endfunction
 
 if MyOnBattery()
@@ -114,6 +117,9 @@ nnoremap <S-Tab> gT
 " nmap <silent> <leader><S-Tab> gT
 " nnoremap <silent> <S-t> :tabnew<CR>
 
+" open file in new tab
+nmap <leader>g <c-w>gf
+
 syntax on
 
 " Enable scrolling
@@ -129,12 +135,13 @@ let g:solarized_termcolors=256
 let g:solarized_term_italics=0
 
 " If you have vim >=8.0 or Neovim >= 0.1.5
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+" These were commented out for Argo setup
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" set termguicolors
 
 " Set colorscheme
-" colorscheme dracula
+colorscheme dracula
 
 " vim-airline
 set laststatus=2
@@ -165,11 +172,11 @@ nmap <leader>ntf :NERDTreeFind<cr>
 
 " xolox/vim-easytags
 " Defaults
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 1
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warnings = 1
+" let g:easytags_events = ['BufReadPost', 'BufWritePost']
+" let g:easytags_async = 1
+" let g:easytags_dynamic_files = 1
+" let g:easytags_resolve_links = 1
+" let g:easytags_suppress_ctags_warnings = 1
 
 " majutsushi/tagbar
 " Open/close tagbar with <leader>b
@@ -192,7 +199,8 @@ augroup END
 " noremap K :SuperMan <cword><CR>
 
 " FZF
-nmap <leader>f :FZF<cr>
+nmap <leader>f :Files<cr>
+noremap <C-p> :Files<Cr>
 
 set list
 
@@ -213,13 +221,25 @@ let g:neomake_warning_sign = {
       \	'texthl': 'NeomakeWarningSign',
       \	}
 
-let g:neomake_cpp_enabled_makers = ['clangcheck', 'clangtidy']
-let g:neomake_cpp_clangtidy_maker = {
-      \ 'exe': 'clang-tidy',
-      \ 'args': ['-extra-arg-before=-std=c++17', '-checks=bugprone-*,cppcoreguidelines-*,clang-analyzer-*,google-*,hicpp-*,misc-*,modernize-*,performance-*,readability-*', '-header-filter=.*', '-quiet'],
-      \ }
+" let g:neomake_cpp_enabled_makers = ['clangcheck', 'clangtidy']
+" let g:neomake_cpp_clangtidy_maker = {
+"       \ 'exe': 'clang-tidy',
+"       \ 'args': ['-extra-arg-before=-std=c++17', '-checks=bugprone-*,cppcoreguidelines-*,clang-analyzer-*,google-*,hicpp-*,misc-*,modernize-*,performance-*,readability-*', '-header-filter=.*', '-quiet'],
+"       \ }
+" 
+" let g:neomake_cpp_clangcheck_maker = {
+"       \ 'exe': 'clang-check',
+"       \ 'args': ['-extra-arg-before=-Wc++17-extensions','-extra-arg-before=-std=c++17'],
+"       \ }
 
-let g:neomake_cpp_clangcheck_maker = {
-      \ 'exe': 'clang-check',
-      \ 'args': ['-extra-arg-before=-Wc++17-extensions','-extra-arg-before=-std=c++17'],
-      \ }
+let g:neomake_python_pycodestyle_maker = {
+  \ 'exe': 'pycodestyle',
+  \ 'args': ['--max-line-length=120'],
+  \ }
+
+set matchpairs+=<:>
+
+autocmd FileType cpp ClangFormatAutoEnable
+
+" This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
